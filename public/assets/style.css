@@ -26,6 +26,8 @@ body {
 
 .cards {
     margin: 30px auto;
+    max-width: 500px;
+    min-width: 300px;
 }
 
 .containerCards {
@@ -40,7 +42,6 @@ body {
 }
 
 .contanierCreatePost {
-    width: 50%;
     margin: 50px auto;
 }
 

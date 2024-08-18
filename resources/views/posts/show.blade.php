@@ -2,8 +2,8 @@
 @section('title', 'Show Post')
 @section('content')
     <div class="info">
-        
-        <div class="card d-flex p-2 cards" style="width: 30%; ">
+
+        <div class="card d-flex p-2 cards">
             <img src="/images/{{ $post->image }}" class="img-thumbnail" alt="...">
 
             <div class="card-body">
@@ -13,7 +13,7 @@
                     <input type="text" class="form-control" name="title" id="title"
                         aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"
                         value="{{ $writer_post = $post->user->name }}" disabled>
-                        <img class="profileImg" src="/images/{{ $post->user->image }}" alt="">
+                    <img class="profileImg" src="/images/{{ $post->user->image }}" alt="">
                 </div>
                 <div class="input-group mb-3">
 
@@ -37,17 +37,16 @@
                         value="{{ $post->category->name }}" disabled>
                 </div>
 
-
+                <label for="Tag" class="input-group-text" id="inputGroup-sizing-default">Tags</label>
                 <div class="input-group mb-3">
-                    <label for="Tag" class="input-group-text" id="inputGroup-sizing-default">Tags</label>
                     @foreach ($tags as $Tag)
-                    <input type="text" class="form-control" name="Tag" id="Tag"
-                        aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"
-                        value="{{ $Tag->name }}" disabled>
-                
-            
+                        <div class="containerTag">
+                            <input type="text" class="form-control d-flex" name="Tag" id="Tag"
+                                aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"
+                                value="{{ $Tag->name }}" disabled>
+                        </div>
                     @endforeach
-            </div>
+                </div>
                 @if (auth()->check() && auth()->user()->can('update', $post))
                     <a href="/post/edit/{{ $post->id }}"><button type="button"
                             class="btn btn-primary">Edit</button></a>
@@ -59,7 +58,7 @@
                         <input class="btn btn-danger" type="submit" value="Delete">
                     </form>
                 @endif
-                <a href="/Home"><button type="button" class="btn btn-secondary">Back</button></a>
+                <a href="/home"><button type="button" class="btn btn-secondary">Back</button></a>
             </div>
         </div>
 
