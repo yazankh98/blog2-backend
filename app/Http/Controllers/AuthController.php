@@ -24,21 +24,20 @@ class AuthController extends Controller
             'email' => 'required|email',
             'password' => 'required'
         ]);
+        if (Auth::attempt($credentials)) {
+            $user = User::where('email', $request->email)->first();
+            if ($user->is_block === 0) {
 
-        $user = User::where('email', $request->email)->first();
-        if ($user->is_block === 0) {
-            if (Auth::attempt($credentials)) {
                 $request->session()->regenerate();
                 return redirect()->intended('/home');
+            } else {
+                $message = 'your acc is bloked';
+                return view('auth.login', compact('message'));
             }
-        }else{
-            $message = 'your acc is bloked';
-            return view('auth.login',compact('message'));
+        } else {
+            $error = 'Please First Register';
+            return  view('auth.login', compact('error'));
         }
-
-
-
-        // return back()->withErrors(['email' => 'Invalid credentials']);
     }
 
 
@@ -54,7 +53,7 @@ class AuthController extends Controller
 
         Auth::login($user);
 
-        return redirect('/Home');
+        return redirect('/home');
     }
 
     public function logout(Request $request)
