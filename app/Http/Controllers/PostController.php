@@ -24,9 +24,8 @@ class PostController extends Controller
         $id = auth()->user()->id;
         $user = User::where('id', $id)->first();
         $post = Post::with('user')->get();
-        $comment = Comment::with('user')->get();
 
-        return view('posts.home', compact(['user', 'comment']))->with('posts', $post);
+        return view('posts.home', compact(['user']))->with('posts', $post);
     }
 
     /**
@@ -131,6 +130,7 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
+        $this->authorize('delete', Post::class);
         $post->delete();
         return redirect()->route('posts.home')->with("succss", "the item deleted");
     }

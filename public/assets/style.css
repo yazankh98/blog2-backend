@@ -33,11 +33,11 @@ body {
 .containerCards {
     display: flex;
     flex-wrap: wrap;
+    align-items: center;
 }
 
 .cardImage {
     width: 100%;
-    height: 100%;
     object-fit: fill;
 }
 

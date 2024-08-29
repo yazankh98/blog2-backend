@@ -49,7 +49,6 @@ class CategoryController extends Controller
         $Category->create(
             [
                 "name" => $request['title'],
-                "post_id" => null,
                 'image' => $imageName
             ]
         );
@@ -103,6 +102,7 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
+        $this->authorize('manageUsers', User::class);
         $category->delete();
         return redirect()->route('add.category')->with("success", "category deleted");
     }

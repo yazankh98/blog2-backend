@@ -34,7 +34,9 @@ class TagController extends Controller
     public function store(Request $request)
     {
         $this->authorize('manageUsers', User::class);
-
+        $request->validate(
+            ['name' => 'required |string']
+        );
         $tag = new Tag;
 
         $tag->create(
@@ -51,7 +53,7 @@ class TagController extends Controller
      */
     // public function show(Tag $tag)
     // {
-        
+
     // }
 
     /**
@@ -59,7 +61,7 @@ class TagController extends Controller
      */
     // public function edit(Tag $tag)
     // {
-        
+
     // }
 
     /**

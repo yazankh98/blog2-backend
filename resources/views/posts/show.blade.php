@@ -47,11 +47,11 @@
                         </div>
                     @endforeach
                 </div>
-                @if (auth()->check() && auth()->user()->can('update', $post))
+                @if ( auth()->user()->can('update', $post))
                     <a href="/post/edit/{{ $post->id }}"><button type="button"
                             class="btn btn-primary">Edit</button></a>
                 @endif
-                @if (auth()->check() && auth()->user()->can('delete', $post))
+                @if ( auth()->user()->can('delete', $post))
                     <form action="/post/delete/{{ $post->id }}" style="display: inline" method="POST">
                         @csrf
                         @method('DELETE')

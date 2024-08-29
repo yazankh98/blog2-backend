@@ -17,13 +17,8 @@ class PostController extends Controller
     public function index()
     {
 
-        $post = Post::all();
-        $comment = Comment::with('user')->get();
-        $data = [
-            $comment,
-            $post
-        ];
-        return response()->json($data);
+        $post = Post::with('user')->get();
+        return response()->json($post);
     }
 
     /**
@@ -105,6 +100,7 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
+        $this->authorize('delete', Post::class);
         $post->delete();
         return response()->json(["message" => "the post deleted"]);
     }

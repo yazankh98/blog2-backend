@@ -21,13 +21,12 @@
         @endif
     </div>
     <div class="deleteImg">
-        @if (auth()->check())
+        
             <form action="/profile/delete/{{ $user->id }}" style="display: inline" method="POST">
                 @csrf
                 @method('DELETE')
                 <input class="btn btn-danger" type="submit" value="Delete">
             </form>
             <a class="btn btn-dark" href="{{ route('posts.home') }}">Home</a>
-        @endif
     </div>
 @endsection

@@ -65,11 +65,11 @@
 
                     <a href="/post/show/{{ $post->id }}"><button type="button"
                             class="btn btn-success">Show</button></a>
-                    @if (auth()->check() && auth()->user()->can('update', $post))
+                    @if (auth()->user()->can('update', $post))
                         <a href="/post/edit/{{ $post->id }}"><button type="button"
                                 class="btn btn-primary">Edit</button></a>
                     @endif
-                    @if (auth()->check() && auth()->user()->can('delete', $post))
+                    @if (auth()->user()->can('delete', $post))
                         <form action="/post/delete/{{ $post->id }}" style="display: inline" method="POST">
                             @csrf
                             @method('DELETE')
@@ -78,28 +78,25 @@
                     @endif
 
                     <h5>Comments:</h5>
-                    @forelse ($comment as $comments)
-                        @if ($post->id == $comments->post_id)
+                    @forelse ($post->comments as $comment)
+                        @if ($post->id == $comment->post_id)
                             <div class="containerComment">
-
-
-                                <p> <b>{{ $comments->user->name }} :</b>
-                                    @if ($comments->post_id == $post->id)
-                                        {{ $comments->name }}
+                                <p> <b>{{ $comment->user->name }} :</b>
+                                        {{ $comment->name }}
                                 </p>
-                                @if (auth()->check() && auth()->user()->can('delete', $comments))
-                                    <form action="/comment/delete/{{ $comments->id }}" style="display: inline"
+                                @if (auth()->user()->can('delete', $comment))
+                                    <form action="/comment/delete/{{ $comment->id }}" style="display: inline"
                                         method="POST">
                                         @csrf
                                         @method('DELETE')
                                         <input class="btn btn-danger" type="submit" value="Delete">
                                     </form>
                                 @endif
-                                @if (auth()->check() && auth()->user()->can('update', $comments))
-                                    <a href="/comment/edit/{{ $comments->id }}"><button type="button"
+                                @if (auth()->user()->can('update', $comment))
+                                    <a href="/comment/edit/{{ $comment->id }}"><button type="button"
                                             class="btn btn-primary">Edit</button></a>
                                 @endif
-                        @endif
+                        
                 </div>
         @endif
     @empty
